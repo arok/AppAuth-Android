@@ -28,7 +28,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, sdk=16)
+@Config(sdk = 16)
 public class UtilsTest {
 
     private static final String TEST_STRING = "test_string\nwith a new line";
@@ -65,5 +65,10 @@ public class UtilsTest {
     public void testReadInputStream() throws Exception {
         InputStream in = new ByteArrayInputStream(TEST_STRING.getBytes());
         assertEquals(TEST_STRING, Utils.readInputStream(in));
+    }
+
+    @Test(expected = IOException.class)
+    public void testReadInputStream_throw() throws Exception{
+        Utils.readInputStream(null);
     }
 }
